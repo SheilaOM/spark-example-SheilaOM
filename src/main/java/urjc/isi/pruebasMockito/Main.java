@@ -1,4 +1,4 @@
-package urjc.isi.puebasMockito;
+package urjc.isi.pruebasMockito;
 
 import static spark.Spark.*;
 

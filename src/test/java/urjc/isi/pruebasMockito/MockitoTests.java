@@ -1,4 +1,4 @@
-package urjc.isi.puebasMockito;
+package urjc.isi.pruebasMockito;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
