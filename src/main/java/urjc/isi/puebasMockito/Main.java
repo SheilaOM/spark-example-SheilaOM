@@ -1,38 +1,33 @@
 package urjc.isi.puebasMockito;
 
-
 import static spark.Spark.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import spark.Request;
+import spark.Response;
 
 import java.net.URISyntaxException;
 
 public class Main {
   
+    public static String doWork(Request request, Response response) throws ClassNotFoundException, URISyntaxException {
+	String result = new String("Hello World");
 
-
-  public static String doWork() throws ClassNotFoundException, URISyntaxException {
-    String result = new String("Hola Mundo");
-
-    return result;
+	return result;
     }
 
-  public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) throws ClassNotFoundException {
         port(getHerokuAssignedPort());
 
         // spark server
-        get("/hello", (req, res) -> doWork());
+        get("/hello", Main::doWork);
 
-        }
-  static int getHerokuAssignedPort() {
+    }
+
+    static int getHerokuAssignedPort() {
         ProcessBuilder processBuilder = new ProcessBuilder();
         if (processBuilder.environment().get("PORT") != null) {
             return Integer.parseInt(processBuilder.environment().get("PORT"));
         }
         return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
-    } 
+    }
 }

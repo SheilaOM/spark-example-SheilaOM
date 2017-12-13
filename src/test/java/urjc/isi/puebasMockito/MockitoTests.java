@@ -19,21 +19,21 @@ public class MockitoTests {
 
 	@Test
 	public void MockListSize() {
-		List list = mock(List.class);		//Crea un mock para la clase list. Tiene la interfaz de List pero no ejecuta la clase List (es un suplantador)
-		when(list.size()).thenReturn(10);	//Cuando se llame a list.size() (que no es de tipo List, es un mock), devuelve un 10. when y thenReturn es de Mockito
-		assertEquals(10, list.size());		//No llama al size de List, sino al mock, por eso devuelve 10, se lo he dicho yo arriba
+		List list = mock(List.class);
+		when(list.size()).thenReturn(10);
+		assertEquals(10, list.size());
 	}
 
 	@Test
 	public void MockListSizeWithMultipleReturnValues() {
 		List list = mock(List.class);
-		when(list.size()).thenReturn(10).thenReturn(20);	//La primera llamada devuelve un 10, las siguientes devuelve 20
+		when(list.size()).thenReturn(10).thenReturn(20);
 		assertEquals(10, list.size()); // Primera llamada
 		assertEquals(20, list.size()); // Segunda llamada
 		assertEquals(20, list.size()); // Tercera llamada y 
 		      						  // subsiguientes devuelven el mismo valor
 		
-		verify(list, times(3)).size();	//sobre el mock list, se ha llamado 3 veces al método size.
+		verify(list, times(3)).size();
 	}
 
 	@Test
@@ -41,14 +41,14 @@ public class MockitoTests {
 		List<String> list = mock(List.class);
 		when(list.get(0)).thenReturn("Hello World");
 		assertEquals("Hello World", list.get(0));
-		assertNull(list.get(1));		//Como he configurado sólo para la llamada de get(0), con get(1) me devuelve null
+		assertNull(list.get(1));
 	}
 
 	@Test
 	public void MockListGetWithAny() {
 		List<String> list = mock(List.class);
-		when(list.get(anyInt())).thenReturn("Hello World");			//Para cualquier entero (anyInt), devuelve Hello World
-		when(list.get(3)).thenReturn("Bye World");					//Para 3 devuelve Bye World
+		when(list.get(anyInt())).thenReturn("Hello World");
+		when(list.get(3)).thenReturn("Bye World");
 		
 		assertEquals("Hello World", list.get(0));
 		assertEquals("Hello World", list.get(1));
@@ -60,7 +60,7 @@ public class MockitoTests {
 	
 	@Test
 	public void MockIterator_will_return_hello_world(){
-		Iterator i = mock(Iterator.class);				//Creo un mock para la clase Iterator
+		Iterator i = mock(Iterator.class);
 		when(i.next()).thenReturn("Hello").thenReturn("World");
 
 		String result=i.next()+" "+i.next();
@@ -85,12 +85,12 @@ public class MockitoTests {
 		when(c.compareTo(3)).thenReturn(0);
 		assertEquals(-1, c.compareTo(5));
 		assertEquals(0, c.compareTo(3));
-		verify(c).compareTo(5);		//Comprueba que se ha llamado a compareTo con 5
-		verify(c).compareTo(3);		//Comprueba que se ha llamado a compareTo con 3
-		verify(c, never()).compareTo(25);	//Comprueba que nunca se mmala a compareTo con 25
-		verify(c, times(1)).compareTo(5);	//Comprueba que se ha llamado exactamente una vez a compareTo con 5
-		verify(c, atLeastOnce()).compareTo(5);	//Comprueba que se ha llamado al menos una vez a compareTo con 5
-		verify(c, atLeast(1)).compareTo(5);		//Comprueba que se ha llamado al menos 1 vez (n veces modificable) con 5
+		verify(c).compareTo(5);
+		verify(c).compareTo(3);
+		verify(c, never()).compareTo(25);
+		verify(c, times(1)).compareTo(5);
+		verify(c, atLeastOnce()).compareTo(5);
+		verify(c, atLeast(1)).compareTo(5);
 	}
 
 
@@ -99,7 +99,7 @@ public class MockitoTests {
 			throws IOException{
 		OutputStream mock=mock(OutputStream.class);
 		OutputStreamWriter osw=new OutputStreamWriter(mock);
-		doThrow(new IOException()).when(mock).close();		//Se eleva excepción cuando llame a close
+		doThrow(new IOException()).when(mock).close();
 		osw.close();
 	}
 	
